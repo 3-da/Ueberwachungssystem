@@ -1,5 +1,7 @@
 from flask import Flask
 
+from src.backend.email.send_email import EmailSender
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -12,7 +14,9 @@ def hello_website():
 
 @app.route('/email')
 def hello_email():
-    return 'Hello from email!'
+    email_sender = EmailSender()
+    email_sender.send_email("Einbruch!", "Bewegung erkannt!")
+    return 'Email sent!'
 
 @app.route('/db')
 def hello_db():
