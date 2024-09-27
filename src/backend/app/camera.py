@@ -18,15 +18,17 @@ camera.resolution = (640, 480)  # Use a reasonable resolution
 camera.framerate = 32
 raw_capture = PiRGBArray(camera, size=camera.resolution)
 
-# Allow the camera to warm up briefly (can be set to a lower value or removed)
+# Allow the camera to warm up briefly
 time.sleep(0.1)
 
 try:
     print("Authentication started")
 
-    # Start the camera preview (optional, for development)
+    # Start the camera preview
     camera.start_preview()
     time.sleep(1)  # Allow a shorter preview adjustment time
+
+    failed_attempts = 0  # Counter for failed attempts
 
     # Continuously capture frames
     for frame in camera.capture_continuous(raw_capture, format="bgr", use_video_port=True):
@@ -47,22 +49,31 @@ try:
             matches = face_recognition.compare_faces([admin_face_encoding], face_encoding)
 
             if True in matches:
-                print("OK")  # Recognized
+                print("Successful")  # Recognized successfully
                 recognized = True
                 break  # Stop checking further
-            else:
-                print("Intruder")  # Not recognized
-                recognized = True  # Set to true to exit after the first check
-                break  # Stop checking further
 
-        # Display the resulting image in a window (set a manageable size)
+        # If no face was recognized
+        if not recognized:
+            failed_attempts += 1
+            print("Authentication failed, trying again...")
+            time.sleep(5)  # Wait for 1 second before trying again
+
+            if failed_attempts >= 2:
+                print("System locked")
+                break  # Exit the loop after 2 failed attempts
+        else:
+            # Exit if recognized successfully
+            break  # Exit the loop immediately on success
+
+        # Display the resulting image in a window
         cv2.imshow("Camera Feed", cv2.resize(image, (640, 480)))  # Resize to 640x480
 
         # Clear the stream for the next frame
         raw_capture.truncate(0)
 
-        # Exit if 'q' is pressed or if a recognition occurred
-        if cv2.waitKey(1) & 0xFF == ord('q') or recognized:
+        # Exit if 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
 except KeyboardInterrupt:
