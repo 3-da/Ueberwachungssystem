@@ -4,6 +4,9 @@ import face_recognition
 import cv2
 import numpy as np
 from picamera.array import PiRGBArray
+from lights import Lights
+
+lights = Lights(26,19,13)
 
 # Specify the path to the known face image
 admin_image_path = "/home/it/Ueberwachungssystem/src/backend/app/admin.jpg"
@@ -50,17 +53,27 @@ try:
 
             if True in matches:
                 print("Successful")  # Recognized successfully
+                lights.green_on()
+                time.sleep(3)
+                lights.green_off()
                 recognized = True
+                lights.cleanup()
                 break  # Stop checking further
 
         # If no face was recognized
         if not recognized:
             failed_attempts += 1
             print("Authentication failed, trying again...")
-            time.sleep(5)  # Wait for 1 second before trying again
+            lights.yellow_on()
+            time.sleep(3)
+            lights.yellow_off()
 
             if failed_attempts >= 2:
                 print("System locked")
+                lights.red_on()
+                time.sleep(5)
+                lights.red_off()
+                lights.cleanup()
                 break  # Exit the loop after 2 failed attempts
         else:
             # Exit if recognized successfully
