@@ -41,27 +41,3 @@ class Lights:
     def cleanup(self):
         self.all_off()
         GPIO.cleanup()
-
-if __name__ == "__main__":
-    red = 26
-    yellow = 19
-    green = 13
-
-    lights = Lights(red, yellow, green)
-
-    try:
-        lights.red_on()
-        time.sleep(2)
-        lights.red_off()
-
-        lights.yellow_on()
-        time.sleep(2)
-        lights.yellow_off()
-
-        lights.green_on()
-        time.sleep(2)
-        lights.green_off()
-    except KeyboardInterrupt:
-        pass
-    finally:
-        lights.cleanup()
