@@ -7,7 +7,7 @@ class CaptureImage:
 
     def capture(self):
         with picamera.PiCamera() as camera:
-            camera.resolution = (1024, 768)
+            camera.resolution = (640, 480)
             camera.start_preview()
             time.sleep(5)
 
