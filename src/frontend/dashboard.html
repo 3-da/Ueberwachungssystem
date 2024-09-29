@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Überwachungssystem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Styling für die Titelleiste */
+        header {
+            background-color: #4cafa2;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* Styling für die Sections */
+        section {
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+
+        /* Styling für den Statusbereich */
+        #status-section {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+        }
+
+        /* Styling für die Tabelle */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 6px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            background-color: rgba(219, 219, 219, 0.171);
+        }
+        
+        p_status {
+            color: red;
+        }
+
+        /* Responsive Design für kleinere Bildschirme */
+        @media screen and (max-width: 600px) {
+            table, th, td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Titelleiste -->
+    <header>
+        <h1>Überwachungssystem</h1>
+    </header>
+
+    <!-- Erste Section für Status -->
+    <section id="status-section">
+        <h2>Status</h2>
+        <p_status>aktiv</p_status>
+    </section>
+
+    <!-- Zweite Section für Tabelle -->
+    <section id="table-section">
+        <h2>Meldungen</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Datum</th>
+                    <th>Uhrzeit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>24.09.2024</td>
+                    <td>11:00 Uhr</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>24.09.2024</td>
+                    <td>11:08 Uhr</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>
