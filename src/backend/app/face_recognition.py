@@ -6,8 +6,14 @@ import picamera
 from picamera.array import PiRGBArray
 from lights import Lights
 
+
 class FaceRecognition:
     def __init__(self):
+        self.lights = Lights()
+        self.authenticated = False
+        self.system_locked = False
+
+        # In future get image from DB
         self.admin_image_path = "/home/it/Ueberwachungssystem/src/backend/app/admin.jpg"
         self.admin_image = face_recognition.load_image_file(self.admin_image_path)
 
@@ -23,11 +29,20 @@ class FaceRecognition:
         # Camera warm up
         time.sleep(0.1)
 
-    def authenticate(self):
-        failed_attempts = 0
+    def _set_authenticated(self, authenticated):
+        self.authenticated = authenticated
 
+    def get_authenticated(self):
+        return self.authenticated
+
+    def _set_system_locked(self, system_locked):
+        self.system_locked = system_locked
+
+    def get_system_locked(self):
+        return self.system_locked
+
+    def _get_face_encodings(self):
         for frame in self.camera.capture_continuous(self.raw_capture, format="bgr", use_video_port=True):
-            recognized = False
             image = frame.array
 
             # Takes the image (NumPy in BGR=blue, green, red format) and converts it to RGB red, green, blue format compatible with face_recognition
@@ -35,54 +50,61 @@ class FaceRecognition:
 
             # Detects all faces in the image and returns their locations as a list of tuples (top, right, bottom, left)
             face_locations = face_recognition.face_locations(rgb_image)
-            face_encodings = face_recognition.face_encodings(rgb_image, face_locations)
+            return face_recognition.face_encodings(rgb_image, face_locations)
 
-            for face_encoding in face_encodings:
-                # Compares the face encoding with the admin face encoding and returns a list of True/False values
-                matches = face_recognition.compare_faces([self.admin_face_encoding], face_encoding)
+    def _authenticate(self):
+        failed_attempts = 0
+        face_encodings = self._get_face_encodings()
 
-                if True in matches:
-                    print("Authentication successful")
-                    self.lights.green_on()
-                    time.sleep(3)
-                    self.lights.green_off()
-                    recognized = True
-                    self.lights.cleanup()
-                    break
+        for face_encoding in face_encodings:
+            # Compares the face encoding with the admin face encoding and returns a list of True/False values
+            matches = face_recognition.compare_faces([self.admin_face_encoding], face_encoding)
 
-            if not recognized:
+            if True in matches:
+                print("Authentication successful")
+                self.lights.green_on()
+                time.sleep(3)
+                self.lights.green_off()
+                self._set_authenticated(True)
+                self.lights.cleanup()
+                break
+
+            if not self.authenticated:
                 failed_attempts += 1
                 print("Authentication failed, trying again...")
                 self.lights.yellow_on()
                 time.sleep(3)
                 self.lights.yellow_off()
 
-                if failed_attempts >= 3:
-                    print("System locked")
-                    self.lights.red_on()
-                    time.sleep(5)
-                    self.lights.red_off()
-                    self.lights.cleanup()
-                    break  # Exit the loop after 3 failed attempts
+            if failed_attempts >= 3:
+                print("System locked")
+                self.lights.red_on()
+                time.sleep(5)
+                self.lights.red_off()
+                self._set_system_locked(True)
+                self.lights.cleanup()
+                break  # Exit the loop after 3 failed attempts
             else:
                 break  # Exit loop on success
 
-            # Clear the stream for the next frame
-            self.raw_capture.truncate(0)
+        # Clear the stream for the next frame
+        self.raw_capture.truncate(0)
 
-            # Exit if 'q' is pressed
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+     while True:
+        # Exit if 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
     def start_authentication(self):
         try:
-            self.authenticate()
+            self._authenticate()
         except KeyboardInterrupt:
             print("Script interrupted.")
         finally:
             # Cleanup
             cv2.destroyAllWindows()
             self.camera.close()
+
 
 if __name__ == "__main__":
     face_recognition = FaceRecognition()
