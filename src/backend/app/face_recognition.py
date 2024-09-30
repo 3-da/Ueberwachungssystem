@@ -8,8 +8,6 @@ from lights import Lights
 
 class FaceRecognition:
     def __init__(self):
-        self.lights = Lights(26, 19, 13)
-
         self.admin_image_path = "/home/it/Ueberwachungssystem/src/backend/app/admin.jpg"
         self.admin_image = face_recognition.load_image_file(self.admin_image_path)
 

@@ -1,12 +1,11 @@
 import RPi.GPIO as GPIO
-import time
 
 
 class Lights:
-    def __init__(self, red,yellow,green):
-        self.red = int(red)
-        self.yellow = int(yellow)
-        self.green = int(green)
+    def __init__(self):
+        self.red = int(26)
+        self.yellow = int(19)
+        self.green = int(13)
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.red, GPIO.OUT)
