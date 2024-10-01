@@ -10,3 +10,7 @@ class App:
 
         while not self.fr.get_authenticated() and not self.fr.get_system_locked():
             time.sleep(1)
+
+if __name__ == "__main__":
+    capture_image = App()
+    capture_image.start()
