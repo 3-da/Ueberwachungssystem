@@ -68,13 +68,13 @@ try:
             time.sleep(3)
             lights.yellow_off()
 
-            if failed_attempts >= 2:
+            if failed_attempts >= 3:
                 print("System locked")
                 lights.red_on()
                 time.sleep(5)
                 lights.red_off()
                 lights.cleanup()
-                break  # Exit the loop after 2 failed attempts
+                break  # Exit the loop after 3 failed attempts
         else:
             # Exit if recognized successfully
             break  # Exit the loop immediately on success
