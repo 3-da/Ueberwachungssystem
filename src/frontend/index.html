@@ -1,12 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Überwachungssystem</title>
-    <link rel="stylesheet" href="./static/css/style.css">
-    <script defer src="./static/js/main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Überwachungssystem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Styling für das Login-Formular */
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #4cafa2;
+            margin-bottom: 20px;
+        }
+
+        /* Styling für die Eingabefelder */
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* Styling für den Login-Button */
+        button {
+            background-color: #4cafa2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #3a8d7e;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .login-container {
+                padding: 15px;
+            }
+
+            input[type="text"], input[type="password"] {
+                font-size: 0.9rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div>Überwachungssystem</div>
+
+    <!-- Login-Formular -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="Benutzername" required><br>
+            <input type="password" name="password" placeholder="Passwort" required><br>
+            <button type="submit">Anmelden</button>
+        </form>
+    </div>
+
 </body>
 </html>

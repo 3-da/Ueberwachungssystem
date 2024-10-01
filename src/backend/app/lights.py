@@ -1,12 +1,11 @@
 import RPi.GPIO as GPIO
-import time
 
 
 class Lights:
-    def __init__(self, red,yellow,green):
-        self.red = int(red)
-        self.yellow = int(yellow)
-        self.green = int(green)
+    def __init__(self):
+        self.red = int(26)
+        self.yellow = int(19)
+        self.green = int(13)
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.red, GPIO.OUT)
@@ -41,27 +40,3 @@ class Lights:
     def cleanup(self):
         self.all_off()
         GPIO.cleanup()
-
-if __name__ == "__main__":
-    red = 26
-    yellow = 19
-    green = 13
-
-    lights = Lights(red, yellow, green)
-
-    try:
-        lights.red_on()
-        time.sleep(2)
-        lights.red_off()
-
-        lights.yellow_on()
-        time.sleep(2)
-        lights.yellow_off()
-
-        lights.green_on()
-        time.sleep(2)
-        lights.green_off()
-    except KeyboardInterrupt:
-        pass
-    finally:
-        lights.cleanup()

@@ -1,16 +1,22 @@
 import picamera
 import time
 
-# Specify the path to save the image
-image_path = '/home/it/Ueberwachungssystem/src/backend/app/admin.jpg'  # Adjust the path as needed
+class CaptureImage:
+    def __init__(self):
+        self.image_path = '/home/it/Ueberwachungssystem/src/backend/app/admin.jpg'
 
-with picamera.PiCamera() as camera:
-    camera.resolution = (1024, 768)  # Set the desired resolution
-    camera.start_preview()  # Start the camera preview
-    time.sleep(5)  # Give the camera some time to adjust
+    def capture(self):
+        with picamera.PiCamera() as camera:
+            camera.resolution = (640, 480)
+            camera.start_preview()
+            time.sleep(5)
 
-    # Capture the image
-    camera.capture(image_path)
-    print(f"Image saved to {image_path}")
+            camera.capture(self.image_path)
+            print(f"Image saved to {self.image_path}")
 
-# Camera and resources are automatically cleaned up by the context manager
+            camera.stop_preview()
+            camera.close()
+
+if __name__ == "__main__":
+    capture_image = CaptureImage()
+    capture_image.capture()
