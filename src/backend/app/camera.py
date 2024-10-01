@@ -1,6 +1,6 @@
 import picamera
 import time
-import face_recognition
+import face_recog
 import cv2
 import numpy as np
 from picamera.array import PiRGBArray

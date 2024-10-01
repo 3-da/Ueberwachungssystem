@@ -1,4 +1,4 @@
-from face_recognition import FaceRecognition
+from face_recog import FaceRecognition
 import time
 
 class App:
