@@ -1,5 +1,81 @@
-div {
-    background-color: lightblue;
-    height: 50px;
-    font-size: 50px;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Styling für das Login-Formular */
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    display:flex;
+    flex-direction: column;
+}
+
+h2 {
+    color: #4cafa2;
+    margin-bottom: 20px;
+    pointer-events: none;
+}
+
+/* Styling für die Eingabefelder */
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none
+}
+
+/* Styling für den Login-Button */
+button {
+    background-color: #4cafa2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #3a8d7e;
+}
+
+.incorrect {
+    border-color: red;
+}
+
+.correct {
+    border-color: green;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .login-container {
+        padding: 15px;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
 }

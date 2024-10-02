@@ -44,7 +44,7 @@ class FaceRecognition:
     def _get_face_encodings(self):
         print("Starting to capture frames...")
         for frame in self.camera.capture_continuous(self.raw_capture, format="bgr", use_video_port=True):
-            print("Frame captured")
+            # print("Frame captured")
             image = frame.array
 
             # Takes the image (NumPy in BGR=blue, green, red format) and converts it to RGB red, green, blue format compatible with face_recognition
@@ -52,7 +52,6 @@ class FaceRecognition:
 
             # Detects all faces in the image and returns their locations as a list of tuples (top, right, bottom, left)
             face_locations = face_recognition.face_locations(rgb_image)
-            print(f"Found {len(face_locations)} face(s)")
 
             if face_locations:
                 return face_recognition.face_encodings(rgb_image, face_locations)
