@@ -14,10 +14,9 @@
         <h2>Login</h2>
         <form id="login-form" method="POST" action="/login">
             <label for="username">Username:</label>
-            <input id="username" type="text" name="username" placeholder="Username" required><br>
-
+            <input id="username" type="text" name="username" placeholder="Username" required class="{{ 'invalid' if auth_error['username'] else '' }}"><br>
             <label for="password">Password:</label>
-            <input id="password" type="password" name="password" placeholder="Password" required><br>
+            <input id="password" type="password" name="password" placeholder="Password" required class="{{ 'invalid' if auth_error['password'] else ''}}"><br>
             <button type="submit">Submit</button>
         </form>
         <p id="error-message" style="color: red;"></p>

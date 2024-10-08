@@ -57,11 +57,11 @@ button:hover {
     background-color: #3a8d7e;
 }
 
-.incorrect {
+.invalid {
     border-color: red;
 }
 
-.correct {
+.valid {
     border-color: green;
 }
 
