@@ -1,6 +1,6 @@
 from flask import Flask, send_from_directory, render_template, request, redirect, url_for, jsonify
-from flask_wtf import FlaskForm
-from src.backend.email.send_email import EmailSender
+# from flask_wtf import FlaskForm
+# from src.backend.email.send_email import EmailSender
 from src.backend.db_mock import datenbank
 
 app = Flask(__name__)
