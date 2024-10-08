@@ -1,15 +1,19 @@
-
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Boolean
 from sqlalchemy.orm import relationship, declarative_base, sessionmaker
+import random
+import string
 
 # Verbindung zur Datenbank erstellen
 engine = create_engine('sqlite:///database.db')
 Base = declarative_base()
 
+def generate_rfid():
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=12))
+
 # Tabelle admin
 class Admin(Base):
     __tablename__ = 'admin'
-    rfid = Column(String, primary_key=True)
+    rfid = Column(String, primary_key=True, default=generate_rfid)
     password = Column(String)
     oncall = Column(Boolean)
     img = Column(String)
