@@ -1,9 +1,12 @@
-from face_recog import FaceRecognition
+from lights import Lights
 import time
 
 class App:
     def __init__(self):
-        self.fr = FaceRecognition()
+        self.lights = Lights()
+        self.lights.red_on()
+        time.sleep(2)
+        self.lights.red_off()
 
     def start(self):
         self.fr.start_authentication()
@@ -13,4 +16,4 @@ class App:
 
 if __name__ == "__main__":
     capture_image = App()
-    capture_image.start()
+    # capture_image.start()
