@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Überwachungssystem - Sign up</title>
+    <link rel="stylesheet" href="./static/css/style.css">
+    <script src="./static/js/main.js" defer></script>
+</head>
+<body>
+
+<!-- Login-Formular -->
+<div class="login-container">
+    <header id="add-admin">
+        <h2>Add admin</h2>
+        <button type="button" id="return" onclick="window.location.href='/dashboard'"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+    </header>
+    <form id="login-form" method="POST" action="/add_admin">
+        <label for="username">Username:</label>
+        <input id="username" type="text" name="username" placeholder="Username" required><br>
+
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password" placeholder="Password" required><br>
+
+        <label for="e-mail">E-Mail:</label>
+        <input id="e-mail" type="email" name="email" placeholder="E-Mail" required><br>
+
+        <label for="phone">Phone nr.:</label>
+        <input id="phone" type="text" name="phone" placeholder="Phone nr."><br>
+
+        <button type="submit">Submit</button>
+    </form>
+    <p id="error-message" style="color: red;"></p>
+</div>
+<script src="https://kit.fontawesome.com/3eff4391a2.js" crossorigin="anonymous"></script>
+</body>
+</html>

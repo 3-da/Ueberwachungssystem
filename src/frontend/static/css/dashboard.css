@@ -20,9 +20,32 @@ section {
 }
 
 /* Styling für den Statusbereich */
+#status-section, #status-section div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 #status-section {
+    justify-content: space-around;
     background-color: #f4f4f4;
     border: 1px solid #ccc;
+}
+
+h2 {
+    margin: 0;
+    padding: 0
+}
+
+button {
+    background-color: #4cafa2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 10%;
 }
 
 /* Styling für die Tabelle */
@@ -44,7 +67,11 @@ td {
     background-color: rgba(219, 219, 219, 0.171);
 }
 
-p_status {
+.aktiv {
+    color: green;
+}
+
+.inaktiv {
     color: red;
 }
 
