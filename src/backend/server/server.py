@@ -31,9 +31,22 @@ def login():
             return redirect(url_for('dashboard'))
         return redirect(url_for('index', auth_error=auth_error))
 
-@app.route('/signup', endpoint='sign_up')
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    return redirect(url_for('index'))
+
+@app.route('/dashboard')
+def dashboard():
+    if not session.get('logged_in'):
+        return redirect(url_for('index'))
+    return render_template('dashboard.html')
+
+@app.route('/add-admin', endpoint='add-admin')
 def sign_up():
-    return render_template('sign_up.html')
+    if not session.get('logged_in'):
+        return redirect(url_for('index'))
+    return render_template('add_admin.html')
 
 
 @app.route('/static/css/<path:filename>')
@@ -74,15 +87,6 @@ def hello_email():
 #     session.add(new_admin)
 #     session.commit()
 #     return jsonify({"message": "New admin added successfully!"}), 201
-
-
-
-
-@app.route('/dashboard')
-def dashboard():
-    if not session.get('logged_in'):
-        return redirect(url_for('index'))
-    return render_template('dashboard.html')
 
 
 if __name__ == '__main__':
