@@ -25,7 +25,6 @@ class Admin(Base):
     entries = relationship("Entrie", back_populates="admin")
     errors = relationship("Error", back_populates="admin")
     breakins = relationship("Breakin", back_populates="admin")
-    on_call_duties = relationship("OnCallDuty", back_populates="admin")
 
 # Tabelle entrie
 class Entrie(Base):
@@ -59,20 +58,7 @@ class Error(Base):
 
     # Beziehung zu admin
     admin = relationship("Admin", back_populates="errors")
-    on_call_duties = relationship("OnCallDuty", back_populates="error")
 
-# Tabelle on_call_duty
-class OnCallDuty(Base):
-    __tablename__ = 'on_call_duty'
-    datetime = Column(DateTime, primary_key=True)
-    admin_email = Column(String, ForeignKey('admin.email'))
-    error_id = Column(Integer, ForeignKey('error.error_id'))
-    breakin_id = Column(Integer, ForeignKey('breakin.breakin_id'))
-
-    # Beziehungen zu anderen Tabellen
-    admin = relationship("Admin", back_populates="on_call_duties")
-    error = relationship("Error", back_populates="on_call_duties")
-    breakin = relationship("Breakin", back_populates="on_call_duties")
 
 # Tabellen erstellen
 Base.metadata.create_all(engine)
