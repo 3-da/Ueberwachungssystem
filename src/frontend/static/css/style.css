@@ -21,6 +21,12 @@ body {
     flex-direction: column;
 }
 
+#add-admin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 h2 {
     color: #4cafa2;
     margin-bottom: 20px;
@@ -50,6 +56,9 @@ button {
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
+}
+
+button[type="submit"] {
     width: 100%;
 }
 
@@ -57,11 +66,11 @@ button:hover {
     background-color: #3a8d7e;
 }
 
-.incorrect {
+.invalid {
     border-color: red;
 }
 
-.correct {
+.valid {
     border-color: green;
 }
 

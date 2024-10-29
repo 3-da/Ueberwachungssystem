@@ -1,13 +1,21 @@
-from flask import Flask, send_from_directory, render_template, request, redirect, url_for, jsonify
-# from flask_wtf import FlaskForm
-# from src.backend.email.send_email import EmailSender
-from src.backend.db_mock import datenbank
+from flask import Flask, send_from_directory, render_template, request, redirect, url_for, session, jsonify
+from src.backend.app.send_email import EmailSender
+# from src.backend.database.database import Admin, Entrie, Breakin, Error, OnCallDuty, session
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../../frontend', static_folder='../../frontend/static')
+app.secret_key = '1234'
+
+auth_error = {
+    "username": None,
+    "password": None
+}
+
+logged_in = False
 
 @app.route('/')
-def hello_root():
-    return redirect(url_for('login'))
+def index():
+    return render_template('index.html', auth_error=auth_error)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -15,26 +23,41 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        user = next((user for user in datenbank['admin'] if user['username'] == username), None)
+        auth_error['username'] = username != 'admin'
+        auth_error['password'] = password != 'p123'
 
-        if user and user['password'] == password:
-                return jsonify(success=True, redirect_url=url_for('dashboard'))
-        elif user and user['password'] != password:
-                return jsonify(success=False, error='Incorrect password')
-        elif not user and user['password'] == password:
-            return jsonify(success=False, error='User not found')
-        else:
-            return jsonify(success=False, error='User not found and password incorrect')
+        if not auth_error['username'] and not auth_error['password']:
+            session['logged_in'] = True
+            return redirect(url_for('dashboard'))
+        return redirect(url_for('index', auth_error=auth_error))
 
-    return send_from_directory('../../frontend', 'index.html')
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    return redirect(url_for('index'))
+
+@app.route('/dashboard')
+def dashboard():
+    if not session.get('logged_in'):
+        return redirect(url_for('index'))
+    return render_template('dashboard.html')
+
+@app.route('/add-admin', endpoint='add-admin')
+def sign_up():
+    if not session.get('logged_in'):
+        return redirect(url_for('index'))
+    return render_template('add_admin.html')
+
 
 @app.route('/static/css/<path:filename>')
 def serve_css(filename):
     return send_from_directory('../../frontend/static/css', filename)
 
+
 @app.route('/static/js/<path:filename>')
 def serve_js(filename):
     return send_from_directory('../../frontend/static/js', filename)
+
 
 @app.route('/email')
 def hello_email():
@@ -42,13 +65,29 @@ def hello_email():
     email_sender.send_email("Einbruch!", "Bewegung erkannt!")
     return 'Email sent!'
 
-@app.route('/db')
-def hello_db():
-    return 'Hello from database!'
+# @app.route('/add_admin', methods=['POST'])
+# def add_admin():
+#     rfid = request.form.get('rfid')
+#     password = request.form.get('password')
+#     oncall = request.form.get('oncall') == 'on'
+#     img = request.form.get('img')
+#     name = request.form.get('name')
+#     email = request.form.get('email')
+#     phone = request.form.get('phone')
+#
+#     new_admin = Admin(
+#         rfid=rfid,
+#         password=password,
+#         oncall=oncall,
+#         img=img,
+#         name=name,
+#         email=email,
+#         phone=phone
+#     )
+#     session.add(new_admin)
+#     session.commit()
+#     return jsonify({"message": "New admin added successfully!"}), 201
 
-@app.route('/dashboard')
-def dashboard():
-    return send_from_directory(directory='../../frontend', path='dashboard.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
