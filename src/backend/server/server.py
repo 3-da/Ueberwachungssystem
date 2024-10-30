@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, render_template, request, redirect, url_for, session, jsonify
 from src.backend.app.send_email import EmailSender
 from src.backend.database.add_admins import HandleAdmins
-# from src.backend.database.database import Admin, Entrie, Breakin, Error, OnCallDuty, session
+# from src.backend.database.database import session, Admin
 
 app = Flask(__name__, template_folder='../../frontend', static_folder='../../frontend/static')
 app.secret_key = '1234'
@@ -71,7 +71,8 @@ def add_admin():
 def show_admins():
     if not session.get('logged_in'):
         return redirect(url_for('index'))
-    return render_template('show_admins.html')
+    admins = add_admins.get_admins()
+    return render_template('show_admins.html', admins=admins)
 
 @app.route('/static/css/<path:filename>')
 def serve_css(filename):

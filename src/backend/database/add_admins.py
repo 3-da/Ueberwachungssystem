@@ -25,3 +25,7 @@ class HandleAdmins:
         session.delete(admin)
         session.commit()
         print(f"Admin {admin_name} removed.")
+
+    @staticmethod
+    def get_admins():
+        return session.query(Admin).all()

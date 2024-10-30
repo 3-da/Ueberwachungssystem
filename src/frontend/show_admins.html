@@ -34,28 +34,19 @@
         </tr>
         </thead>
         <tbody>
+        {% for admin in admins %}
         <tr>
-            <td>admin1</td>
-            <td>kjnddlkfjjh19823</td>
-            <td>admin1@test.com</td>
-            <td>123123123</td>
-            <td>path/admin1</td>
-            <td>False</td>
+            <td>{{ admin.name }}</td>
+            <td>{{ admin.rfid }}</td>
+            <td>{{ admin.email }}</td>
+            <td>{{ admin.phone }}</td>
+            <td>{{ admin.img_path }}</td>
+            <td>{{ admin.on_call }}</td>
             <td>
                 <button>X</button>
             </td>
         </tr>
-        <tr>
-            <td>admin2</td>
-            <td>adflknaf1289449</td>
-            <td>admin2@test.com</td>
-            <td>345345345</td>
-            <td>path/admin2</td>
-            <td>True</td>
-            <td>
-                <button>X</button>
-            </td>
-        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </section>
