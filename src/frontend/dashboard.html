@@ -8,49 +8,51 @@
 </head>
 <body>
 
-    <!-- Titelleiste -->
-    <header>
-        <h1>Überwachungssystem</h1>
-    </header>
+<!-- Titelleiste -->
+<header>
+    <h1>Überwachungssystem</h1>
+</header>
 
-    <!-- Erste Section für Status -->
-    <nav id="status-section">
-        <div>
-            <h2>System Status: </h2>
-            <p class="aktiv">aktiv</p>
-        </div>
+<!-- Erste Section für Status -->
+<nav id="status-section">
+    <div>
+        <h2>System Status: </h2>
+        <p class="aktiv">aktiv</p>
+    </div>
 
-        <button type="button" onclick="window.location.href='/add-admin'">Add admin</button>
-        <button type="button" onclick="window.location.href='/logout'">Logg out</button>
+    <button type="button" onclick="window.location.href='/add-admin'">Add admin</button>
+    <button type="button" onclick="window.location.href='/show-admins'">Show admins</button>
+    <button type="button" onclick="window.location.href='/logout'">Logg out</button>
 
 
-    </nav>
+</nav>
 
-    <!-- Zweite Section für Tabelle -->
-    <section id="table-section">
-        <h2>Meldungen</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Datum</th>
-                    <th>Uhrzeit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>24.09.2024</td>
-                    <td>11:00 Uhr</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>24.09.2024</td>
-                    <td>11:08 Uhr</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+<!-- Zweite Section für Tabelle -->
+<section id="table-section">
+    <h2>Meldungen</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Datum</th>
+            <th>Uhrzeit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>001</td>
+            <td>24.09.2024</td>
+            <td>11:00 Uhr</td>
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>24.09.2024</td>
+            <td>11:08 Uhr</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
 
+<script src="https://kit.fontawesome.com/3eff4391a2.js" crossorigin="anonymous"></script>
 </body>
 </html>

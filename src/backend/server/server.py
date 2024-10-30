@@ -1,5 +1,6 @@
 from flask import Flask, send_from_directory, render_template, request, redirect, url_for, session, jsonify
 from src.backend.app.send_email import EmailSender
+from src.backend.database.add_admins import HandleAdmins
 # from src.backend.database.database import Admin, Entrie, Breakin, Error, OnCallDuty, session
 
 app = Flask(__name__, template_folder='../../frontend', static_folder='../../frontend/static')
@@ -11,6 +12,8 @@ auth_error = {
 }
 
 logged_in = False
+
+add_admins = HandleAdmins()
 
 @app.route('/')
 def index():
@@ -48,6 +51,27 @@ def sign_up():
         return redirect(url_for('index'))
     return render_template('add_admin.html')
 
+@app.route('/admin-to-db', methods=['POST'])
+def add_admin():
+    if not session.get('logged_in'):
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        password = request.form.get('password')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        image_path = request.form.get('image-path')
+
+        add_admins.add_admins(name, password, email, phone, image_path, False)
+
+        return redirect(url_for('dashboard'))
+
+@app.route('/show-admins', endpoint='show-admins')
+def show_admins():
+    if not session.get('logged_in'):
+        return redirect(url_for('index'))
+    return render_template('show_admins.html')
 
 @app.route('/static/css/<path:filename>')
 def serve_css(filename):

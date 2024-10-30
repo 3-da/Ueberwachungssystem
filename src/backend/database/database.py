@@ -1,10 +1,16 @@
+import os
+
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Boolean
 from sqlalchemy.orm import relationship, declarative_base, sessionmaker
 import random
 import string
 
+# Construct the absolute path for the database file
+base_dir = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(base_dir, 'database.db')
+
 # Verbindung zur Datenbank erstellen
-engine = create_engine('sqlite:///database.db')
+engine = create_engine(f'sqlite:///{db_path}')
 Base = declarative_base()
 
 def generate_rfid():
