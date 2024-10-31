@@ -25,14 +25,16 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        admin_data = add_admins.login_validation()
 
-        auth_error['username'] = username != 'admin'
-        auth_error['password'] = password != 'p123'
-
-        if not auth_error['username'] and not auth_error['password']:
-            session['logged_in'] = True
-            return redirect(url_for('dashboard'))
-        return redirect(url_for('index', auth_error=auth_error))
+        for admin in admin_data:
+            if username == admin[0] and password == admin[1]:
+                session['logged_in'] = True
+                return redirect(url_for('dashboard'))
+            else:
+                auth_error['username'] = 'Username or password is incorrect'
+                auth_error['password'] = 'Username or password is incorrect'
+                return redirect(url_for('index', auth_error=auth_error))
 
 @app.route('/logout')
 def logout():
