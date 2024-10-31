@@ -67,6 +67,18 @@ def add_admin():
 
         return redirect(url_for('dashboard'))
 
+@app.route('/remove-admin', methods=['GET', 'POST'])
+def remove_admin():
+    if not session.get('logged_in'):
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        name = request.form.get('admin_name')
+        print(name)
+        add_admins.remove_admin(name)
+
+        return redirect(url_for('dashboard'))
+
 @app.route('/show-admins', endpoint='show-admins')
 def show_admins():
     if not session.get('logged_in'):

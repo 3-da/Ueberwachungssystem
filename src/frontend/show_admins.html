@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang = "de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Überwachungssystem - Dashboard</title>
-    <link rel="stylesheet" href="./static/css/dashboard.css">
+    <link rel = "stylesheet" href = "./static/css/dashboard.css">
 </head>
 <body>
 
@@ -14,41 +14,43 @@
 </header>
 
 <!-- Zweite Section für Tabelle -->
-<section id="table-section">
-    <div style="display:flex">
+<section id = "table-section">
+    <div style = "display:flex">
         <h2>Admins</h2>
-        <button type="button" id="return" onclick="window.location.href='/dashboard'">
-            <i class="fa-solid fa-arrow-rotate-left"></i></button>
+        <button type = "button" id = "return" onclick = "window.location.href='/dashboard'">
+            <i class = "fa-solid fa-arrow-rotate-left"></i></button>
     </div>
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>RFID</th>
-            <th>E-mail</th>
-            <th>Phone</th>
-            <th>Img path</th>
-            <th>On call</th>
-            <th>Delete admin</th>
+    <form action = "/remove-admin" method = "POST">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>RFID</th>
+                <th>E-mail</th>
+                <th>Phone</th>
+                <th>Img path</th>
+                <th>On call</th>
+                <th>Delete admin</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for admin in admins %}
-        <tr>
-            <td>{{ admin.name }}</td>
-            <td>{{ admin.rfid }}</td>
-            <td>{{ admin.email }}</td>
-            <td>{{ admin.phone }}</td>
-            <td>{{ admin.img_path }}</td>
-            <td>{{ admin.on_call }}</td>
-            <td>
-                <button>X</button>
-            </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </tr>
+            </thead>
+            <tbody>
+            {% for admin in admins %}
+            <tr>
+                <td>{{ admin.name }}</td>
+                <td>{{ admin.rfid }}</td>
+                <td>{{ admin.email }}</td>
+                <td>{{ admin.phone }}</td>
+                <td>{{ admin.img_path }}</td>
+                <td>{{ admin.on_call }}</td>
+                <td>
+                    <button type="submit" name="admin_name" value="{{ admin.name }}">X</button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
 </section>
 
 </body>

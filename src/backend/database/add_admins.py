@@ -22,9 +22,13 @@ class HandleAdmins:
     @staticmethod
     def remove_admin(admin_name):
         admin = session.query(Admin).filter_by(name=admin_name).first()
-        session.delete(admin)
-        session.commit()
-        print(f"Admin {admin_name} removed.")
+        if admin:
+            session.delete(admin)
+            session.commit()
+            print(f"Admin {admin_name} removed.")
+        else:
+            print(f"No {admin_name} found.")
+
 
     @staticmethod
     def get_admins():
