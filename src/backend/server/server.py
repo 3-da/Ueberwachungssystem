@@ -1,6 +1,7 @@
-from flask import Flask, send_from_directory, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, send_from_directory, render_template, request, redirect, url_for, session
 from src.backend.app.send_email import EmailSender
 from src.backend.database.add_admins import HandleAdmins
+
 # from src.backend.database.database import session, Admin
 
 app = Flask(__name__, template_folder='../../frontend', static_folder='../../frontend/static')

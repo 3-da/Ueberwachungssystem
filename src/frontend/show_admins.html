@@ -15,10 +15,9 @@
 
 <!-- Zweite Section für Tabelle -->
 <section id = "table-section">
-    <div style = "display:flex">
+    <div style = "display:flex; align-items: center">
         <h2>Admins</h2>
-        <button type = "button" id = "return" onclick = "window.location.href='/dashboard'">
-            <i class = "fa-solid fa-arrow-rotate-left"></i></button>
+        <a href="/dashboard"><img src="./static/images/back.svg" alt="Back arrow"></a>
     </div>
     <form action = "/remove-admin" method = "POST">
         <table>
@@ -44,7 +43,7 @@
                 <td>{{ admin.img_path }}</td>
                 <td>{{ admin.on_call }}</td>
                 <td>
-                    <button type="submit" name="admin_name" value="{{ admin.name }}">X</button>
+                    <button type="submit" name="admin_name" value="{{ admin.name }}"><img src="./static/images/delete.svg" alt="Trash can"></button>
                 </td>
             </tr>
             {% endfor %}

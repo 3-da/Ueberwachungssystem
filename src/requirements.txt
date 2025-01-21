@@ -1,6 +1,7 @@
-Flask
+flask
 picamera
 face_recognition
 cv2
 numpy
 RPi.GPIO
+sqlalchemy
