@@ -1,38 +1,20 @@
 import RPi.GPIO as GPIO
-import time
-# import neopixel
-
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-
-MOTION_SENSOR = 21
-ROT = 26
-RGB = 18
-
-# pixels = neopixel.NeoPixel(RGB, 24)
-
-GPIO.setup(ROT, GPIO.OUT)
-GPIO.setup(MOTION_SENSOR, GPIO.IN)
-GPIO.setup(RGB, GPIO.OUT)
-
-# def set_color(color):
-#    pixels.fill(color)
-#    pixels.show()
 
 
-def light():
-    GPIO.output(ROT, True)
-    time.sleep(0.3)
-    GPIO.output(ROT, False)
-    time.sleep(0.3)
+class MotionSensor:
+    def __init__(self):
+        self.__motion_bcm = int(21)
+        self.__motion_detected = False
 
-while True:
-    motion = GPIO.input(MOTION_SENSOR)
-    print(motion)
-    if (motion):
-        light()
-        # GPIO.output(RGB, True)
-        # set_color((255,0,0))
-    # else:
-        # GPIO.output(RGB, False)
-    
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.__motion_bcm, GPIO.IN)
+
+    def set_motion_status(self):
+        self.__motion_detected = GPIO.input(self.__motion_bcm)
+
+    def get_motion_status(self):
+        return self.__motion_detected
+
+    def cleanup(self):
+        self.__motion_detected = False
+        GPIO.cleanup()

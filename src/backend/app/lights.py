@@ -3,34 +3,34 @@ import RPi.GPIO as GPIO
 
 class Lights:
     def __init__(self):
-        self.red = int(26)
-        self.yellow = int(19)
-        self.green = int(13)
+        self.red_bcm = int(26)
+        self.yellow_bcm = int(19)
+        self.green_bcm = int(13)
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.red, GPIO.OUT)
-        GPIO.setup(self.yellow, GPIO.OUT)
-        GPIO.setup(self.green, GPIO.OUT)
+        GPIO.setup(self.red_bcm, GPIO.OUT)
+        GPIO.setup(self.yellow_bcm, GPIO.OUT)
+        GPIO.setup(self.green_bcm, GPIO.OUT)
 
         self.all_off()
 
     def red_on(self):
-        GPIO.output(self.red, GPIO.HIGH)
-    
+        GPIO.output(self.red_bcm, GPIO.HIGH)
+
     def red_off(self):
-        GPIO.output(self.red, GPIO.LOW)
+        GPIO.output(self.red_bcm, GPIO.LOW)
 
     def yellow_on(self):
-        GPIO.output(self.yellow, GPIO.HIGH)
-    
+        GPIO.output(self.yellow_bcm, GPIO.HIGH)
+
     def yellow_off(self):
-        GPIO.output(self.yellow, GPIO.LOW)
+        GPIO.output(self.yellow_bcm, GPIO.LOW)
 
     def green_on(self):
-        GPIO.output(self.green, GPIO.HIGH)
-    
+        GPIO.output(self.green_bcm, GPIO.HIGH)
+
     def green_off(self):
-        GPIO.output(self.green, GPIO.LOW)
+        GPIO.output(self.green_bcm, GPIO.LOW)
 
     def all_off(self):
         self.red_off()
