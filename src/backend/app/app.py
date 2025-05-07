@@ -1,9 +1,11 @@
-from control_unit import ControlUnit
-from door_sensor import DoorSensor
-from motion_sensor import MotionSensor
-from lights import Lights
 import threading
 import time
+
+from control_unit import ControlUnit
+from door_sensor import DoorSensor
+from lights import Lights
+from motion_sensor import MotionSensor
+
 
 class App:
     def __init__(self):

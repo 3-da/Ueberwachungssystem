@@ -1,7 +1,8 @@
 from flask import Flask, send_from_directory, render_template, request, redirect, url_for, session
+
+from src.backend.app.app import App
 from src.backend.app.send_email import EmailSender
 from src.backend.database.add_admins import HandleAdmins
-from src.backend.app.app import App
 
 # from src.backend.database.database import session, Admin
 
@@ -16,6 +17,7 @@ auth_error = {
 logged_in = False
 
 add_admins = HandleAdmins()
+
 
 @server.route('/')
 def index():
@@ -37,11 +39,15 @@ def login():
                 auth_error['username'] = 'Username or password is incorrect'
                 auth_error['password'] = 'Username or password is incorrect'
                 return redirect(url_for('index', auth_error=auth_error))
+        return None
+    return None
+
 
 @server.route('/logout')
 def logout():
     session['logged_in'] = False
     return redirect(url_for('index'))
+
 
 @server.route('/dashboard')
 def dashboard():
@@ -49,11 +55,13 @@ def dashboard():
         return redirect(url_for('index'))
     return render_template('dashboard.html')
 
+
 @server.route('/add-admin', endpoint='add-admin')
 def sign_up():
     if not session.get('logged_in'):
         return redirect(url_for('index'))
     return render_template('add_admin.html')
+
 
 @server.route('/admin-to-db', methods=['POST'])
 def add_admin():
@@ -64,12 +72,12 @@ def add_admin():
         name = request.form.get('name')
         password = request.form.get('password')
         email = request.form.get('email')
-        phone = request.form.get('phone')
-        image_path = request.form.get('image-path')
 
-        add_admins.add_admins(name, password, email, phone, image_path, False)
+        add_admins.add_admin(name, password, email)
 
         return redirect(url_for('dashboard'))
+    return None
+
 
 @server.route('/remove-admin', methods=['GET', 'POST'])
 def remove_admin():
@@ -82,6 +90,8 @@ def remove_admin():
         add_admins.remove_admin(name)
 
         return redirect(url_for('dashboard'))
+    return None
+
 
 @server.route('/show-admins', endpoint='show-admins')
 def show_admins():
@@ -89,6 +99,7 @@ def show_admins():
         return redirect(url_for('index'))
     admins = add_admins.get_admins()
     return render_template('show_admins.html', admins=admins)
+
 
 @server.route('/static/css/<path:filename>')
 def serve_css(filename):
@@ -100,6 +111,7 @@ def hello_email():
     email_sender = EmailSender()
     email_sender.send_email("Einbruch!", "Bewegung erkannt!")
     return 'Email sent!'
+
 
 if __name__ == '__main__':
     app = App()
