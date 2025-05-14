@@ -9,12 +9,12 @@ class CaptureImage:
     def capture(self):
         # Set timestamp for image capture
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        self.image_path = self.image_path or f"/home/it/Dokumente/Raumüberwachung II/Ueberwachungssystem/src/backend/app/breakin_{timestamp}.jpg"
+        self.image_path = self.image_path or f"/home/it/Dokumente/Raumüberwachung II/Ueberwachungssystem/src/backend/app/img/breakin_{timestamp}.jpg"
 
         with picamera.PiCamera() as camera:
             camera.resolution = (640, 480)
-            camera.start_preview()
-            time.sleep(1)
+            camera.start_preview(fullscreen=False, window = (1150,100,640,480))
+            time.sleep(0.8)
             
             # Capture image
             camera.capture(self.image_path)
