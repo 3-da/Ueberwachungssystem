@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-# import neopixel
+from capture_image import CaptureImage
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -9,16 +9,11 @@ MOTION_SENSOR = 21
 ROT = 26
 RGB = 18
 
-# pixels = neopixel.NeoPixel(RGB, 24)
-
 GPIO.setup(ROT, GPIO.OUT)
 GPIO.setup(MOTION_SENSOR, GPIO.IN)
 GPIO.setup(RGB, GPIO.OUT)
 
-# def set_color(color):
-#    pixels.fill(color)
-#    pixels.show()
-
+last_capture_time = 0
 
 def light():
     GPIO.output(ROT, True)
@@ -29,10 +24,13 @@ def light():
 while True:
     motion = GPIO.input(MOTION_SENSOR)
     print(motion)
-    if (motion):
+    time.sleep(0.3)
+
+    current_time = time.time()
+    if motion and (current_time - last_capture_time >= 6):  # Prüfen, ob 6 Sek vergangen sind
         light()
-        # GPIO.output(RGB, True)
-        # set_color((255,0,0))
-    # else:
-        # GPIO.output(RGB, False)
+        capture_image = CaptureImage()
+        capture_image.capture()
+        last_capture_time = current_time  # Aktualisieren der Zeit des letzten Captures
+        
     

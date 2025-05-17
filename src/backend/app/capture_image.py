@@ -1,5 +1,5 @@
 import picamera
-import time
+# import time
 from datetime import datetime
 
 class CaptureImage:
@@ -14,7 +14,7 @@ class CaptureImage:
         with picamera.PiCamera() as camera:
             camera.resolution = (640, 480)
             camera.start_preview(fullscreen=False, window = (1150,100,640,480))
-            time.sleep(0.8)
+            # time.sleep(0.8)
             
             # Capture image
             camera.capture(self.image_path)
