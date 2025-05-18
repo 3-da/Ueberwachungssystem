@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang = "de">
+<html lang="de">
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Überwachungssystem - Dashboard</title>
-    <link rel = "stylesheet" href = "./static/css/dashboard.css">
+    <link rel="stylesheet" href="./static/css/dashboard.css">
 </head>
 <body>
 
@@ -14,23 +14,19 @@
 </header>
 
 <!-- Zweite Section für Tabelle -->
-<section id = "table-section">
-    <div style = "display:flex; align-items: center">
+<section id="table-section">
+    <div style="display:flex; align-items: center">
         <h2>Admins</h2>
         <a href="/dashboard"><img src="./static/images/back.svg" alt="Back arrow"></a>
     </div>
-    <form action = "/remove-admin" method = "POST">
+    <form action="/remove-admin" method="POST">
         <table>
             <thead>
             <tr>
                 <th>Name</th>
                 <th>RFID</th>
                 <th>E-mail</th>
-                <th>Phone</th>
-                <th>Img path</th>
-                <th>On call</th>
                 <th>Delete admin</th>
-
             </tr>
             </thead>
             <tbody>
@@ -39,11 +35,9 @@
                 <td>{{ admin.name }}</td>
                 <td>{{ admin.rfid }}</td>
                 <td>{{ admin.email }}</td>
-                <td>{{ admin.phone }}</td>
-                <td>{{ admin.img_path }}</td>
-                <td>{{ admin.on_call }}</td>
                 <td>
-                    <button type="submit" name="admin_name" value="{{ admin.name }}"><img src="./static/images/delete.svg" alt="Trash can"></button>
+                    <button type="submit" name="admin_name" value="{{ admin.name }}"><img
+                            src="./static/images/delete.svg" alt="Trash can"></button>
                 </td>
             </tr>
             {% endfor %}
