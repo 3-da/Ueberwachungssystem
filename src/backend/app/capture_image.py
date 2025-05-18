@@ -1,4 +1,5 @@
 import picamera
+from app.save_image import SaveImage
 # import time
 from datetime import datetime
 
@@ -20,6 +21,10 @@ class CaptureImage:
             camera.capture(self.image_path)
             
             print(f"Image saved to {self.image_path} with timestamp {timestamp}")
+
+            # Save image and timestamp in database table
+            save_image = SaveImage()
+            save_image.add_entry(self.image_path, timestamp)
             
             camera.stop_preview()
             camera.close()
