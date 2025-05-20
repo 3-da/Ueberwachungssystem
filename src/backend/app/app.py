@@ -1,12 +1,12 @@
-from lights import Lights
+# from lights import Lights
 import time
 
 class App:
-    def __init__(self):
-        self.lights = Lights()
-        self.lights.red_on()
-        time.sleep(2)
-        self.lights.red_off()
+    # def __init__(self):
+        # self.lights = Lights()
+        # self.lights.red_on()
+        # time.sleep(2)
+        # self.lights.red_off()
 
     def start(self):
         self.fr.start_authentication()
