@@ -14,7 +14,7 @@ class FaceRecognition:
         self.system_locked = False
 
         # In future get image from DB
-        self.admin_image_path = "/home/it/Ueberwachungssystem/src/backend/app/admin.jpg"
+        self.admin_image_path = "/home/it/Dokumente/Raumüberwachung_II/Ueberwachungssystem/src/backend/app/admin.jpg"
         self.admin_image = face_recognition.load_image_file(self.admin_image_path)
 
         # Encodes image to NumPy array and extracts the first face encoding
