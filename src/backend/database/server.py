@@ -1,6 +1,5 @@
 from flask import Flask, send_from_directory, render_template, request, redirect, url_for, session
-
-from src.backend.database.add_admins import HandleAdmins
+from add_admins import HandleAdmins
 
 app = Flask(__name__, template_folder='../../frontend', static_folder='../../frontend/static')
 app.secret_key = '1234'
