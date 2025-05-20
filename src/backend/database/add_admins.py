@@ -1,5 +1,4 @@
-from src.backend.database.database import session, Admin
-
+from database import Admin, session
 
 class HandleAdmins:
     def __init__(self):
